@@ -1,0 +1,29 @@
+name: Natural GitHub Activity Bot
+
+on:
+  schedule:
+    - cron: '0 6 * * 1-5'   # Morning UTC (11:30 IST)
+    - cron: '0 12 * * 1-5'  # Afternoon UTC (5:30 IST)
+    - cron: '0 18 * * 1-5'  # Evening UTC (11:30 PM IST)
+  workflow_dispatch:
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Generate natural commits
+        run: |
+          sudo apt-get install -y python3
+          python3 commit.py
+
+      - name: Push changes
+        run: |
+          git push
