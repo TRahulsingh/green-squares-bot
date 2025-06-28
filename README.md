@@ -18,7 +18,7 @@ This is a **demo project** that showcases how you can use **GitHub Actions** to 
 ## ✨ Key Features
 
 - 🔁 **Automated Commits**  
-  Generates between **3–8 commits** per weekday (Mon–Fri) with natural variability
+  Generates between **4–10 commits** per weekday (Mon–Fri) with natural variability
 
 - 🕒 **Multiple Time Slots**  
   Runs three times daily (Morning, Afternoon, Evening) to spread activity
@@ -46,7 +46,7 @@ The workflow runs on:
 Each run performs:
 1. 🧾 Git checkout  
 2. ⚙️ Git identity setup  
-3. 📄 Running `commit.py` to generate 0–2 commits  
+3. 📄 Running `commit.py` to generate 0–4 commits  
 4. 🗂️ Random file updates  
 5. 📤 Git push
 
