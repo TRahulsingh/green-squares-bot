@@ -24,6 +24,12 @@ jobs:
           sudo apt-get install -y python3
           python3 commit.py
 
-      - name: Push changes
+      - name: Push if changes exist
         run: |
-          git push
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "🔄 Changes detected. Pushing..."
+            git push
+          else
+            echo "✅ No changes to push."
+          fi
+
