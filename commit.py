@@ -40,8 +40,8 @@ if weekday >= 5:
 
 # Track total daily commits across time slots
 counter_file = ".commit_tracker.json"
-min_total = 3
-max_total = 8
+min_total = 4
+max_total = 10
 
 # Load or init tracker
 if os.path.exists(counter_file):
@@ -57,13 +57,13 @@ if remaining <= 0:
     print("Reached max commits for today. Exiting.")
     exit()
 
-# Each slot does 0–2 commits, depending on remaining
-slot_commit = random.choices([0, 1, 2], weights=[30, 50, 20])[0]
+# Each slot does 0–4 commits, depending on remaining
+slot_commit = random.choices([0, 1, 2, 3, 4], weights=[10, 20, 30, 20, 20])[0]
 slot_commit = min(slot_commit, remaining)
 
 # Ensure we hit minimum by end of day
-if done + slot_commit < min_total and remaining <= 2:
-    slot_commit = remaining
+if done + slot_commit < min_total and remaining <= 4:
+    slot_commit = min(min_total - done, remaining)
 
 log_entries = []
 
