@@ -36,9 +36,10 @@ target_files = ["daily_log.txt", "progress.md", "inspiration.txt"]
 # 📅 Skip weekends
 today = datetime.datetime.now()
 weekday = today.weekday()
-if weekday >= 5:
-    print("🛌 Weekend! No commits.")
+if weekday == 6:  # Sunday only
+    print("🛌 Sunday! Skipping commits.")
     exit()
+
 
 # 🧠 Track total daily commits
 counter_file = ".commit_tracker.json"
