@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 6 * * 1-6'     # Morning UTC (11:30 AM IST)
     - cron: '0 12 * * 1-6'    # Afternoon UTC (5:30 PM IST)
-    - cron: '0 13 * * 1-6'   # Evening UTC (6:30 PM IST)
+    - cron: '0 13 * * 1-6'   # Evening UTC (6:25 PM IST)
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # ✅ Fixes rebase issue by cloning full history
+          fetch-depth: 0  # ✅ DO NOT REMOVE THIS LINE!
 
       - name: Set up Git
         run: |
