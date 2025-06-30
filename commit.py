@@ -61,8 +61,7 @@ if remaining <= 0:
     exit()
 
 # 🎲 Randomly choose 1–4 commits per slot (not 0 anymore)
-#slot_commit = random.choices([1, 2, 3, 4], weights=[25, 30, 25, 20])[0]
-slot_commit = 2  # force 2 commits
+slot_commit = random.choices([1, 2, 3, 4], weights=[25, 30, 25, 20])[0]
 slot_commit = min(slot_commit, remaining)
 
 # Guarantee min_total by end of day
