@@ -2,7 +2,7 @@ name: Natural GitHub Activity Bot
 
 on:
   schedule:
-    - cron: '42 1 * * 1-6'  # ⏰ 7:12 AM IST (Mon–Sat)
+   - cron: '48 13 * * 1-6'   # Evening UTC (7:18 PM IST)
   workflow_dispatch:
 
 jobs:
