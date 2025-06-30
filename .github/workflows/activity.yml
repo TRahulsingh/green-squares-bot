@@ -2,9 +2,9 @@ name: Natural GitHub Activity Bot
 
 on:
   schedule:
-    - cron: '0 6 * * 1-6'   # Morning UTC (11:30 IST)
-    - cron: '0 12 * * 1-6'  # Afternoon UTC (5:30 IST)
-    - cron: '0 18 * * 1-6'  # Evening UTC (11:30 PM IST)
+    - cron: '0 6 * * 1-6'     # Morning UTC (11:30 AM IST)
+    - cron: '0 12 * * 1-6'    # Afternoon UTC (5:30 PM IST)
+    - cron: '55 12 * * 1-6'   # Evening UTC (6:25 PM IST)
   workflow_dispatch:
 
 jobs:
@@ -23,6 +23,10 @@ jobs:
         run: |
           sudo apt-get install -y python3
           python3 commit.py
+
+      - name: Pull latest changes before pushing
+        run: |
+          git pull --rebase
 
       - name: Push if changes exist
         run: |
