@@ -2,9 +2,9 @@ name: Natural GitHub Activity Bot
 
 on:
   schedule:
-    - cron: '0 6 * * 1-6'     # 11:30 AM IST
-    - cron: '0 12 * * 1-6'    # 5:30 PM IST
-    - cron: '55 12 * * 1-6'   # 6:25 PM IST
+    - cron: '0 6 * * 1-6'     # 11:30 AM IST (Morning)
+    - cron: '0 12 * * 1-6'    # 5:30 PM IST (Afternoon)
+    - cron: '10 13 * * 1-6'   # 6:40 PM IST (Evening)
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # ✅ This line enables full Git history
+          fetch-depth: 0  # ✅ Required for pulling and rebasing
 
       - name: Set up Git
         run: |
@@ -28,7 +28,7 @@ jobs:
 
       - name: Pull latest changes before pushing
         run: |
-          git pull origin main --rebase  # ✅ Force rebase from origin/main
+          git pull origin main --rebase
 
       - name: Push if changes exist
         run: |
