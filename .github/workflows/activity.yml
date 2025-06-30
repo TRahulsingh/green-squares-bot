@@ -2,9 +2,9 @@ name: Natural GitHub Activity Bot
 
 on:
   schedule:
-    - cron: '0 6 * * 1-6'     # 11:30 AM IST (Morning)
-    - cron: '0 12 * * 1-6'    # 5:30 PM IST (Afternoon)
-    - cron: '10 13 * * 1-6'   # 6:40 PM IST (Evening)
+    - cron: '0 6 * * 1-6'     # 11:30 AM IST
+    - cron: '0 12 * * 1-6'    # 5:30 PM IST
+    - cron: '23 13 * * 1-6'   # Evening UTC (6:53 PM IST)
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # ✅ Required for pulling and rebasing
+          fetch-depth: 0
 
       - name: Set up Git
         run: |
@@ -25,6 +25,16 @@ jobs:
         run: |
           sudo apt-get install -y python3
           python3 commit.py
+
+      - name: Stage files if changed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "🔧 Staging changes before pull..."
+            git add .
+            git commit -m "📌 Pre-pull auto-commit to avoid rebase error" || echo "Nothing to commit"
+          else
+            echo "✅ No changes to stage."
+          fi
 
       - name: Pull latest changes before pushing
         run: |
