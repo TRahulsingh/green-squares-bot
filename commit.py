@@ -33,66 +33,67 @@ commit_messages = [
 
 target_files = ["daily_log.txt", "progress.md", "inspiration.txt"]
 
-# 📅 Skip weekends
-today = datetime.datetime.now()
-weekday = today.weekday()
+# 📅 Skip Sundays
+now = datetime.datetime.now()
+weekday = now.weekday()
 if weekday == 6:  # Sunday only
     print("🛌 Sunday! Skipping commits.")
     exit()
 
-
-# 🧠 Track total daily commits
+# 🧠 Daily commit tracking
 counter_file = ".commit_tracker.json"
 min_total = 4
 max_total = 10
-today_str = today.strftime('%Y-%m-%d')
+date_key = now.strftime('%Y-%m-%d')  # For commit tracking
+timestamp = now.strftime('%Y-%m-%d %H:%M:%S')  # For writing into files
 
-# 📦 Load previous commit count for today
+# 📦 Load or create tracker
 if os.path.exists(counter_file):
     with open(counter_file, "r") as f:
         data = json.load(f)
 else:
     data = {}
 
-done = data.get(today_str, 0)
+done = data.get(date_key, 0)
 remaining = max_total - done
 if remaining <= 0:
     print("✅ Max commits reached for today.")
     exit()
 
-# 🎲 Randomly choose 1–4 commits per slot (not 0 anymore)
+# 🎲 Choose 1–4 commits
 slot_commit = random.choices([1, 2, 3, 4], weights=[25, 30, 25, 20])[0]
 slot_commit = min(slot_commit, remaining)
 
-# Guarantee min_total by end of day
+# ⛳ Ensure minimum total by day-end
 if done + slot_commit < min_total and remaining <= 4:
     slot_commit = min(min_total - done, remaining)
 
 log_entries = []
 
-# 🔁 Create commits
+# 🔁 Generate commits
 for _ in range(slot_commit):
     quote = random.choice(quotes)
     message = random.choice(commit_messages)
     filename = random.choice(target_files)
 
+    # Write timestamped quote to selected file
     with open(filename, "a") as f:
-        f.write(f"{today_str}: {quote}\n")
+        f.write(f"[{timestamp}] {quote}\n")
 
     subprocess.run(["git", "add", filename])
     subprocess.run(["git", "commit", "-m", message])
-    log_entries.append(f" - {message}")
+    log_entries.append(f"[{timestamp}] - {message}")
 
-# 🧾 Update daily tracker
-data[today_str] = done + slot_commit
+# 📌 Update tracker
+data[date_key] = done + slot_commit
 with open(counter_file, "w") as f:
     json.dump(data, f)
 
-# 📜 Append to commit log
+# 📝 Update commit_log.txt
 if slot_commit > 0:
     with open("commit_log.txt", "a") as log:
-        log.write(f"[{today_str}] +{slot_commit} commits\n")
+        log.write(f"[{timestamp}] +{slot_commit} commit(s)\n")
         log.write("\n".join(log_entries) + "\n\n")
 
-# ✅ Print summary
-print(f"✅ {slot_commit} commit(s) made in this slot. Total so far today: {done + slot_commit}")
+# ✅ Final log
+print(f"✅ {slot_commit} commit(s) made at {timestamp}. Total today: {done + slot_commit}")
