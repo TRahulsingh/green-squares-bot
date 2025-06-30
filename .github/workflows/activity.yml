@@ -2,9 +2,7 @@ name: Natural GitHub Activity Bot
 
 on:
   schedule:
-    - cron: '0 6 * * 1-6'     # 11:30 AM IST
-    - cron: '0 12 * * 1-6'    # 5:30 PM IST
-    - cron: '33 13 * * 1-6'   # Evening UTC (7:03 PM IST)
+    - cron: '42 1 * * 1-6'  # ⏰ 7:12 AM IST (Mon–Sat)
   workflow_dispatch:
 
 jobs:
@@ -14,9 +12,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # ✅ This line enables full Git history
+          fetch-depth: 0  # Needed for pulling with history
 
-      - name: Set up Git
+      - name: Set up Git identity
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -26,9 +24,19 @@ jobs:
           sudo apt-get install -y python3
           python3 commit.py
 
+      - name: Auto-commit if unstaged changes exist (pre-pull)
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "📌 Pre-pull changes found. Committing..."
+            git add .
+            git commit -m "📌 Pre-pull auto-commit to avoid rebase error" || echo "Nothing to commit"
+          else
+            echo "✅ No local changes before pull."
+          fi
+
       - name: Pull latest changes before pushing
         run: |
-          git pull origin main --rebase  # ✅ Force rebase from origin/main
+          git pull origin main --rebase
 
       - name: Push if changes exist
         run: |
@@ -36,5 +44,5 @@ jobs:
             echo "🔄 Changes detected. Pushing..."
             git push origin main
           else
-            echo "✅ No changes to push."
+            echo "✅ No new changes to push."
           fi
