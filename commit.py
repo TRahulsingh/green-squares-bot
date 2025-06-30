@@ -3,6 +3,7 @@ import random
 import datetime
 import subprocess
 import json
+import pytz  # Added for timezone support
 
 # 🌿 Inspirational quotes and messages
 quotes = [
@@ -33,19 +34,22 @@ commit_messages = [
 
 target_files = ["daily_log.txt", "progress.md", "inspiration.txt"]
 
-# 📅 Skip Sundays
-now = datetime.datetime.now()
+# 🕒 Use IST timezone (12-hour format with AM/PM)
+ist = pytz.timezone('Asia/Kolkata')
+now = datetime.datetime.now(ist)
 weekday = now.weekday()
 if weekday == 6:  # Sunday only
     print("🛌 Sunday! Skipping commits.")
     exit()
 
+# 📅 Date and Time formatting
+date_key = now.strftime('%Y-%m-%d')  # For commit tracking
+timestamp = now.strftime('%Y-%m-%d %I:%M:%S %p')  # For logs (12-hour format + AM/PM)
+
 # 🧠 Daily commit tracking
 counter_file = ".commit_tracker.json"
 min_total = 4
 max_total = 10
-date_key = now.strftime('%Y-%m-%d')  # For commit tracking
-timestamp = now.strftime('%Y-%m-%d %H:%M:%S')  # For writing into files
 
 # 📦 Load or create tracker
 if os.path.exists(counter_file):
