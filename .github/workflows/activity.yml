@@ -2,9 +2,9 @@ name: Natural GitHub Activity Bot
 
 on:
   schedule:
-    - cron: '0 6 * * 1-6'     # Morning UTC (11:30 AM IST)
-    - cron: '0 12 * * 1-6'    # Afternoon UTC (5:30 PM IST)
-    - cron: '0 13 * * 1-6'   # Evening UTC (6:25 PM IST)
+    - cron: '0 6 * * 1-6'     # 11:30 AM IST
+    - cron: '0 12 * * 1-6'    # 5:30 PM IST
+    - cron: '55 12 * * 1-6'   # 6:25 PM IST
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # ✅ DO NOT REMOVE THIS LINE!
+          fetch-depth: 0   # ✅ This line enables full Git history
 
       - name: Set up Git
         run: |
@@ -28,13 +28,13 @@ jobs:
 
       - name: Pull latest changes before pushing
         run: |
-          git pull --rebase
+          git pull origin main --rebase  # ✅ Force rebase from origin/main
 
       - name: Push if changes exist
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             echo "🔄 Changes detected. Pushing..."
-            git push
+            git push origin main
           else
             echo "✅ No changes to push."
           fi
