@@ -3,9 +3,9 @@ import random
 import datetime
 import subprocess
 import json
-import pytz  # For IST time formatting
+import pytz  # Timezone support
 
-# 🌿 Inspirational quotes
+# 🌿 Expanded inspirational quotes
 quotes = [
     "Push yourself, because no one else is going to do it for you.",
     "Success is the sum of small efforts, repeated.",
@@ -17,14 +17,19 @@ quotes = [
     "Another commit to greatness.",
     "Progress, not perfection.",
     "Just showing up matters.",
-    "Be so good they can’t ignore you.",
-    "Discipline is doing it even when you don't feel like it.",
-    "Hard work beats talent when talent doesn't work hard.",
-    "Crawl if you must, but keep moving forward.",
-    "Every commit counts toward greatness."
+    "Every commit counts toward greatness.",
+    "Build something you're proud of.",
+    "Bit by bit, you create the masterpiece.",
+    "The habit of showing up wins the game.",
+    "Don’t break the streak — commit today!",
+    "From bugs to brilliance — keep coding!",
+    "It’s not about perfection. It’s about progress.",
+    "You’re one step closer to your goal.",
+    "Keep calm and commit on.",
+    "Even a tiny push moves the needle."
 ]
 
-# 💬 Commit messages
+# 🌈 Expanded commit messages
 commit_messages = [
     "🚀 Boosting productivity with code magic!",
     "🌈 Painting the contribution graph today",
@@ -36,33 +41,37 @@ commit_messages = [
     "📝 Daily dose of code",
     "📊 Keeping the graph alive",
     "✨ One step at a time",
-    "🔧 Fixing the force of habit",
-    "🔁 Commit, push, repeat!",
-    "🔒 Securing consistency with commits",
-    "🎯 Focused commit for focused goals",
-    "🛠️ Tinkering toward excellence"
+    "🎯 Another mark on the roadmap",
+    "✅ Small win for the day",
+    "📦 Packaging progress, one file at a time",
+    "🔧 Tweaked, tuned, and tightened",
+    "🧪 Experimented with improvements",
+    "🎉 Progress never looked better",
+    "💭 Thoughts turned into code",
+    "🛠️ Building habits, one commit at a time",
+    "📈 Slow and steady climb",
+    "🚧 Another brick in the dev wall"
 ]
 
 target_files = ["daily_log.txt", "progress.md", "inspiration.txt"]
 
-# 🕒 Use IST timezone
+# ⏰ IST timezone & 12-hour format
 ist = pytz.timezone('Asia/Kolkata')
 now = datetime.datetime.now(ist)
 weekday = now.weekday()
-if weekday == 6:
+if weekday == 6:  # Sunday
     print("🛌 Sunday! Skipping commits.")
     exit()
 
-# 📅 Date and time formatting
 date_key = now.strftime('%Y-%m-%d')
-timestamp = now.strftime('%Y-%m-%d %I:%M:%S %p')  # 12-hour format with AM/PM
+timestamp = now.strftime('%Y-%m-%d %I:%M:%S %p')  # 12hr format with AM/PM
 
-# 📊 Daily commit tracker
+# 📊 Daily commit tracking
 counter_file = ".commit_tracker.json"
 min_total = 6
-max_total = 14
+max_total = 15
 
-# Load or create tracker file
+# Load tracker file
 if os.path.exists(counter_file):
     with open(counter_file, "r") as f:
         data = json.load(f)
@@ -71,43 +80,44 @@ else:
 
 done = data.get(date_key, 0)
 remaining = max_total - done
-
 if remaining <= 0:
     print("✅ Max commits reached for today.")
     exit()
 
-# 🎲 Choose 1–5 commits for this time slot
+# 🔢 Random commits this slot: 1–5
 slot_commit = random.randint(1, 5)
 slot_commit = min(slot_commit, remaining)
 
-# 📈 Enforce minimum by end of day (last slot effect)
+# Ensure min_total is met
 if done + slot_commit < min_total and remaining <= 5:
     slot_commit = min(min_total - done, remaining)
 
 log_entries = []
 
-# 🔁 Make commits
+# 🔁 Make the commits
 for _ in range(slot_commit):
     quote = random.choice(quotes)
     message = random.choice(commit_messages)
-    file = random.choice(target_files)
+    filename = random.choice(target_files)
 
-    with open(file, "a") as f:
+    # Write quote
+    with open(filename, "a") as f:
         f.write(f"[{timestamp}] {quote}\n")
 
-    subprocess.run(["git", "add", file])
+    subprocess.run(["git", "add", filename])
     subprocess.run(["git", "commit", "-m", message])
     log_entries.append(f"[{timestamp}] - {message}")
 
-# Update commit tracker
+# 🧠 Update tracker
 data[date_key] = done + slot_commit
 with open(counter_file, "w") as f:
     json.dump(data, f)
 
-# Append to commit_log
+# 📘 Write commit log
 if slot_commit > 0:
     with open("commit_log.txt", "a") as log:
         log.write(f"[{timestamp}] +{slot_commit} commit(s)\n")
         log.write("\n".join(log_entries) + "\n\n")
 
+# ✅ Final print
 print(f"✅ {slot_commit} commit(s) made at {timestamp}. Total today: {done + slot_commit}")
