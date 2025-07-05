@@ -69,7 +69,7 @@ timestamp = now.strftime('%Y-%m-%d %I:%M:%S %p')  # 12hr format with AM/PM
 # 📊 Daily commit tracking
 counter_file = ".commit_tracker.json"
 min_total = 3
-max_total = 9
+max_total = 15
 
 # Load tracker file
 if os.path.exists(counter_file):
@@ -84,8 +84,8 @@ if remaining <= 0:
     print("✅ Max commits reached for today.")
     exit()
 
-# 🔢 Random commits this slot: 1–4
-slot_commit = random.randint(1, 4)
+# 🔢 Random commits this slot: 1–5
+slot_commit = random.randint(1, 5)
 slot_commit = min(slot_commit, remaining)
 
 # Ensure min_total is met
