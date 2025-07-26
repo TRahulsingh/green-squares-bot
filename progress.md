@@ -57,3 +57,4 @@
 [2025-07-24 09:22:14 PM] Push yourself, because no one else is going to do it for you.
 [2025-07-24 09:22:14 PM] Progress, not perfection.
 [2025-07-25 06:13:59 PM] The habit of showing up wins the game.
+[2025-07-26 09:21:43 PM] Consistency is more important than intensity.
