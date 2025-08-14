@@ -100,3 +100,4 @@
 [2025-08-13 06:13:38 PM] Push yourself, because no one else is going to do it for you.
 [2025-08-14 11:48:09 AM] Build something you're proud of.
 [2025-08-14 11:48:09 AM] Progress, not perfection.
+[2025-08-14 06:14:31 PM] The habit of showing up wins the game.
