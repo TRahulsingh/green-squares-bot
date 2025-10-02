@@ -17,38 +17,45 @@ This is a **demo project** that showcases how you can use **GitHub Actions** to 
 
 ## ✨ Key Features
 
-- 🔁 **Automated Commits**  
-  Generates between **3–15 commits** per weekday (Mon–Sat) with natural variability
+- 🔁 **Automated Commits on 3–5 Random Days per Week**  
+  Each week, the bot picks 3 to 5 random days (including weekends) to commit.
 
-- 🕒 **Multiple Time Slots**  
-  Runs three times daily (Morning, Afternoon, Evening) to spread activity
+- 🔢 **Multiple Commits per Day**  
+  Generates between **3 to 15 commits** on each commit day, with natural variation.
 
-- 🧠 **Human-like Commit Messages**  
-  Each commit includes random quotes, emojis, or messages to simulate real development
+- 🕒 **Runs Three Times Daily**  
+  Scheduled runs spread throughout the day (Morning, Afternoon, Evening) to simulate organic activity.
 
-- 📜 **Commit Logging**  
-  Tracks all commits in `commit_log.txt` for transparency
+- 🧠 **Human-like Commit Messages and Quotes**  
+  Uses randomly selected inspirational quotes and emojis to simulate real development habits.
 
-- 🧪 **Educational Purpose Only**  
-  Intended as a sandbox for learning about GitHub Actions and CI/CD workflows
+- 📜 **Commit History Logging**  
+  Logs all commits in `commit_log.txt` for transparency and tracking.
+
+- 🧪 **Educational Use Only**  
+  Designed as a learning tool for GitHub Actions, automation, and CI/CD workflows.
 
 ---
 
 ## ⚙️ How It Works
 
-This project uses a `commit.py` Python script and a scheduled GitHub Actions workflow (`.github/workflows/activity.yml`).
+This project uses a `commit.py` Python script executed through a scheduled GitHub Actions workflow (`.github/workflows/activity.yml`).
 
-The workflow runs on:
-- **Morning:** `06:00 UTC` (11:30 AM IST)
-- **Afternoon:** `12:00 UTC` (5:30 PM IST)
-- **Evening:** `15:45 UTC` (9:15 PM IST)
+The workflow runs daily at three times:
+
+- 🌅 **Morning:** `06:00 UTC` (11:30 AM IST)  
+- 🌞 **Afternoon:** `12:00 UTC` (5:30 PM IST)  
+- 🌙 **Evening:** `15:45 UTC` (9:15 PM IST)  
 
 Each run performs:
+
 1. 🧾 Git checkout  
 2. ⚙️ Git identity setup  
-3. 📄 Running `commit.py` to generate 1–5 commits  
-4. 🗂️ Random file updates  
-5. 📤 Git push
+3. 🎲 Weekly randomization of 3–5 commit days  
+4. ✍️ Running `commit.py` to generate 3–15 commits on commit days  
+5. 🗂️ Updating random files with quotes and messages  
+6. 🔄 Pull latest changes with rebase  
+7. 📤 Push commits if ahead  
 
 ---
 
