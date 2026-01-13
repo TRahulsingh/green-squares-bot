@@ -106,7 +106,7 @@ if remaining <= 0:
     exit()
 
 # Random number of commits
-slot_commit = random.randint(1, 5)
+slot_commit = random.randint(5, 10)
 slot_commit = min(slot_commit, remaining)
 
 # Ensure min_total is met
