@@ -420,3 +420,4 @@
 [2026-02-07 12:00:37 PM] The habit of showing up wins the game.
 [2026-02-07 09:28:51 PM] Just showing up matters.
 [2026-02-09 06:15:12 PM] The habit of showing up wins the game.
+[2026-02-09 06:15:12 PM] It’s not about perfection. It’s about progress.
