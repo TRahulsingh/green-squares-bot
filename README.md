@@ -64,7 +64,7 @@ Each run performs:
 ### Clone the repo:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/green-squares-bot.git
+git clone https://github.com/TRahulsingh/green-squares-bot.git
 cd green-squares-bot
 ```
 
